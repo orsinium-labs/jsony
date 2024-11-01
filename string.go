@@ -2,8 +2,8 @@ package jsony
 
 import "unicode/utf8"
 
-func writeString(dst *SafeWriter, src []byte) {
-	dst.WriteByte('"')
+func writeString(dst *Bytes, src []byte) {
+	dst.Append('"')
 	start := 0
 	for i := 0; i < len(src); {
 		if b := src[i]; b < utf8.RuneSelf {
@@ -11,27 +11,27 @@ func writeString(dst *SafeWriter, src []byte) {
 				i++
 				continue
 			}
-			dst.Write(src[start:i])
+			dst.Extend(src[start:i])
 			switch b {
 			case '\\', '"':
-				dst.Write([]byte{'\\', b})
+				dst.Extend([]byte{'\\', b})
 			case '\b':
-				dst.Write([]byte{'\\', 'b'})
+				dst.Extend([]byte{'\\', 'b'})
 			case '\f':
-				dst.Write([]byte{'\\', 'f'})
+				dst.Extend([]byte{'\\', 'f'})
 			case '\n':
-				dst.Write([]byte{'\\', 'n'})
+				dst.Extend([]byte{'\\', 'n'})
 			case '\r':
-				dst.Write([]byte{'\\', 'r'})
+				dst.Extend([]byte{'\\', 'r'})
 			case '\t':
-				dst.Write([]byte{'\\', 't'})
+				dst.Extend([]byte{'\\', 't'})
 			default:
 				// This encodes bytes < 0x20 except for \b, \f, \n, \r and \t.
 				// If escapeHTML is set, it also escapes <, >, and &
 				// because they can lead to security holes when
 				// user-controlled strings are rendered into JSON
 				// and served to some browsers.
-				dst.Write([]byte{'\\', 'u', '0', '0', hex[b>>4], hex[b&0xF]})
+				dst.Extend([]byte{'\\', 'u', '0', '0', hex[b>>4], hex[b&0xF]})
 			}
 			i++
 			start = i
@@ -47,8 +47,8 @@ func writeString(dst *SafeWriter, src []byte) {
 		}
 		c, size := utf8.DecodeRuneInString(string(src[i : i+n]))
 		if c == utf8.RuneError && size == 1 {
-			dst.Write(src[start:i])
-			dst.Write([]byte(`\ufffd`))
+			dst.Extend(src[start:i])
+			dst.Extend([]byte(`\ufffd`))
 			i += size
 			start = i
 			continue
@@ -61,16 +61,16 @@ func writeString(dst *SafeWriter, src []byte) {
 		// escape them, so we do so unconditionally.
 		// See https://en.wikipedia.org/wiki/JSON#Safety.
 		if c == '\u2028' || c == '\u2029' {
-			dst.Write(src[start:i])
-			dst.Write([]byte{'\\', 'u', '2', '0', '2', hex[c&0xF]})
+			dst.Extend(src[start:i])
+			dst.Extend([]byte{'\\', 'u', '2', '0', '2', hex[c&0xF]})
 			i += size
 			start = i
 			continue
 		}
 		i += size
 	}
-	dst.Write(src[start:])
-	dst.WriteByte('"')
+	dst.Extend(src[start:])
+	dst.Append('"')
 }
 
 const hex = "0123456789abcdef"

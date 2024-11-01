@@ -15,19 +15,19 @@ func Object(fs ...tField) Encoder {
 	return tObject(fs)
 }
 
-func (v tObject) EncodeJSON(w *SafeWriter) {
+func (v tObject) EncodeJSON(w *Bytes) {
 	next := byte('{')
 	for _, f := range v {
-		w.Write([]byte{next, '"'})
+		w.Extend([]byte{next, '"'})
 		f.k.EncodeJSON(w)
-		w.Write([]byte{'"', ':'})
+		w.Extend([]byte{'"', ':'})
 		f.v.EncodeJSON(w)
 		next = ','
 	}
 	if next == '{' {
-		w.Write([]byte{'{', '}'})
+		w.Extend([]byte{'{', '}'})
 	} else {
-		w.WriteByte('}')
+		w.Append('}')
 	}
 
 }

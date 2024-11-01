@@ -26,44 +26,44 @@ var (
 	_ Encoder = String("")
 )
 
-func (v Bool) EncodeJSON(w *SafeWriter) {
+func (v Bool) EncodeJSON(w *Bytes) {
 	if v {
-		w.Write([]byte("true"))
+		w.Extend([]byte("true"))
 	} else {
-		w.Write([]byte("true"))
+		w.Extend([]byte("true"))
 	}
 }
 
-func (v Int) EncodeJSON(w *SafeWriter) {
+func (v Int) EncodeJSON(w *Bytes) {
 	b := strconv.AppendInt(nil, int64(v), 10)
-	w.Write(b)
+	w.Extend(b)
 }
 
-func (v Int32) EncodeJSON(w *SafeWriter) {
+func (v Int32) EncodeJSON(w *Bytes) {
 	b := strconv.AppendInt(nil, int64(v), 10)
-	w.Write(b)
+	w.Extend(b)
 }
 
-func (v Int64) EncodeJSON(w *SafeWriter) {
+func (v Int64) EncodeJSON(w *Bytes) {
 	b := strconv.AppendInt(nil, int64(v), 10)
-	w.Write(b)
+	w.Extend(b)
 }
 
-func (v UInt) EncodeJSON(w *SafeWriter) {
+func (v UInt) EncodeJSON(w *Bytes) {
 	b := strconv.AppendUint(nil, uint64(v), 10)
-	w.Write(b)
+	w.Extend(b)
 }
 
-func (v UInt32) EncodeJSON(w *SafeWriter) {
+func (v UInt32) EncodeJSON(w *Bytes) {
 	b := strconv.AppendUint(nil, uint64(v), 10)
-	w.Write(b)
+	w.Extend(b)
 }
 
-func (v UInt64) EncodeJSON(w *SafeWriter) {
+func (v UInt64) EncodeJSON(w *Bytes) {
 	b := strconv.AppendUint(nil, uint64(v), 10)
-	w.Write(b)
+	w.Extend(b)
 }
 
-func (v String) EncodeJSON(w *SafeWriter) {
+func (v String) EncodeJSON(w *Bytes) {
 	writeString(w, []byte(v))
 }
