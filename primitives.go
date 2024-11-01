@@ -1,6 +1,8 @@
 package jsony
 
-import "strconv"
+import (
+	"strconv"
+)
 
 type (
 	Bool   bool
@@ -10,6 +12,7 @@ type (
 	UInt   uint
 	UInt32 uint32
 	UInt64 uint64
+	String string
 )
 
 var (
@@ -20,6 +23,7 @@ var (
 	_ Encoder = UInt(0)
 	_ Encoder = UInt32(0)
 	_ Encoder = UInt64(0)
+	_ Encoder = String("")
 )
 
 func (v Bool) EncodeJSON(w *SafeWriter) {
@@ -58,4 +62,8 @@ func (v UInt32) EncodeJSON(w *SafeWriter) {
 func (v UInt64) EncodeJSON(w *SafeWriter) {
 	b := strconv.AppendUint(nil, uint64(v), 10)
 	w.Write(b)
+}
+
+func (v String) EncodeJSON(w *SafeWriter) {
+	writeString(w, []byte(v))
 }
