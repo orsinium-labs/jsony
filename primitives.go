@@ -41,33 +41,27 @@ func (v Bool) EncodeJSON(w *Bytes) {
 }
 
 func (v Int) EncodeJSON(w *Bytes) {
-	b := strconv.AppendInt(nil, int64(v), 10)
-	w.Extend(b)
+	w.buf = strconv.AppendInt(w.buf, int64(v), 10)
 }
 
 func (v Int32) EncodeJSON(w *Bytes) {
-	b := strconv.AppendInt(nil, int64(v), 10)
-	w.Extend(b)
+	w.buf = strconv.AppendInt(w.buf, int64(v), 10)
 }
 
 func (v Int64) EncodeJSON(w *Bytes) {
-	b := strconv.AppendInt(nil, int64(v), 10)
-	w.Extend(b)
+	w.buf = strconv.AppendInt(w.buf, int64(v), 10)
 }
 
 func (v UInt) EncodeJSON(w *Bytes) {
-	b := strconv.AppendUint(nil, uint64(v), 10)
-	w.Extend(b)
+	w.buf = strconv.AppendUint(w.buf, uint64(v), 10)
 }
 
 func (v UInt32) EncodeJSON(w *Bytes) {
-	b := strconv.AppendUint(nil, uint64(v), 10)
-	w.Extend(b)
+	w.buf = strconv.AppendUint(w.buf, uint64(v), 10)
 }
 
 func (v UInt64) EncodeJSON(w *Bytes) {
-	b := strconv.AppendUint(nil, uint64(v), 10)
-	w.Extend(b)
+	w.buf = strconv.AppendUint(w.buf, uint64(v), 10)
 }
 
 func (v String) EncodeJSON(w *Bytes) {
@@ -75,5 +69,7 @@ func (v String) EncodeJSON(w *Bytes) {
 }
 
 func (v safeString) EncodeJSON(w *Bytes) {
+	w.Append('"')
 	w.Extend([]byte(v))
+	w.Append('"')
 }
