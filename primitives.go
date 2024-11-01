@@ -22,7 +22,10 @@ type (
 	Float64    float64
 	String     string
 	safeString string
+	null       bool
 )
+
+const Null null = false
 
 var (
 	_ Encoder = Bool(true)
@@ -45,6 +48,10 @@ var (
 
 func SafeString(s safeString) safeString {
 	return s
+}
+
+func (v null) EncodeJSON(w *Bytes) {
+	w.Extend([]byte("null"))
 }
 
 func (v Bool) EncodeJSON(w *Bytes) {
