@@ -29,6 +29,21 @@ func BenchmarkInt_Stdlib(b *testing.B) {
 	}
 }
 
+func BenchmarkFloat64_Jsony(b *testing.B) {
+	v := box(3.14)
+	for i := 0; i < b.N; i++ {
+		box(jsony.EncodeBytes(jsony.Float64(v)))
+	}
+}
+
+func BenchmarkFloat64_Stdlib(b *testing.B) {
+	v := box(3.14)
+	for i := 0; i < b.N; i++ {
+		b, _ := json.Marshal(v)
+		box(b)
+	}
+}
+
 func BenchmarkSafeString_Jsony(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		box(jsony.EncodeBytes(jsony.SafeString("johny")))

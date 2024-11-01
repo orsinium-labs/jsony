@@ -1,6 +1,7 @@
 package jsony
 
 import (
+	"math"
 	"strconv"
 )
 
@@ -12,6 +13,8 @@ type (
 	UInt       uint
 	UInt32     uint32
 	UInt64     uint64
+	Float32    float32
+	Float64    float64
 	String     string
 	safeString string
 )
@@ -24,6 +27,8 @@ var (
 	_ Encoder = UInt(0)
 	_ Encoder = UInt32(0)
 	_ Encoder = UInt64(0)
+	_ Encoder = Float32(0)
+	_ Encoder = Float64(0)
 	_ Encoder = String("")
 	_ Encoder = SafeString("")
 )
@@ -62,6 +67,24 @@ func (v UInt32) EncodeJSON(w *Bytes) {
 
 func (v UInt64) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendUint(w.buf, uint64(v), 10)
+}
+
+func (v Float32) EncodeJSON(w *Bytes) {
+	abs := float32(math.Abs(float64(v)))
+	fmt := byte('f')
+	if abs != 0 && (abs < 1e-6 || abs >= 1e21) {
+		fmt = 'e'
+	}
+	w.buf = strconv.AppendFloat(w.buf, float64(v), fmt, -1, 32)
+}
+
+func (v Float64) EncodeJSON(w *Bytes) {
+	abs := math.Abs(float64(v))
+	fmt := byte('f')
+	if abs != 0 && (abs < 1e-6 || abs >= 1e21) {
+		fmt = 'e'
+	}
+	w.buf = strconv.AppendFloat(w.buf, float64(v), fmt, -1, 64)
 }
 
 func (v String) EncodeJSON(w *Bytes) {
