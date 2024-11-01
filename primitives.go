@@ -8,11 +8,16 @@ import (
 type (
 	Bool       bool
 	Int        int
+	Int8       int8
+	Int16      int16
 	Int32      int32
 	Int64      int64
 	UInt       uint
+	UInt8      uint8
+	UInt16     uint16
 	UInt32     uint32
 	UInt64     uint64
+	UIntPtr    uintptr
 	Float32    float32
 	Float64    float64
 	String     string
@@ -22,11 +27,16 @@ type (
 var (
 	_ Encoder = Bool(true)
 	_ Encoder = Int(0)
+	_ Encoder = Int8(0)
+	_ Encoder = Int16(0)
 	_ Encoder = Int32(0)
 	_ Encoder = Int64(0)
 	_ Encoder = UInt(0)
+	_ Encoder = UInt8(0)
+	_ Encoder = UInt16(0)
 	_ Encoder = UInt32(0)
 	_ Encoder = UInt64(0)
+	_ Encoder = UIntPtr(0)
 	_ Encoder = Float32(0)
 	_ Encoder = Float64(0)
 	_ Encoder = String("")
@@ -49,6 +59,14 @@ func (v Int) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendInt(w.buf, int64(v), 10)
 }
 
+func (v Int8) EncodeJSON(w *Bytes) {
+	w.buf = strconv.AppendInt(w.buf, int64(v), 10)
+}
+
+func (v Int16) EncodeJSON(w *Bytes) {
+	w.buf = strconv.AppendInt(w.buf, int64(v), 10)
+}
+
 func (v Int32) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendInt(w.buf, int64(v), 10)
 }
@@ -61,11 +79,23 @@ func (v UInt) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendUint(w.buf, uint64(v), 10)
 }
 
+func (v UInt8) EncodeJSON(w *Bytes) {
+	w.buf = strconv.AppendUint(w.buf, uint64(v), 10)
+}
+
+func (v UInt16) EncodeJSON(w *Bytes) {
+	w.buf = strconv.AppendUint(w.buf, uint64(v), 10)
+}
+
 func (v UInt32) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendUint(w.buf, uint64(v), 10)
 }
 
 func (v UInt64) EncodeJSON(w *Bytes) {
+	w.buf = strconv.AppendUint(w.buf, uint64(v), 10)
+}
+
+func (v UIntPtr) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendUint(w.buf, uint64(v), 10)
 }
 
