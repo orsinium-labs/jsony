@@ -1,7 +1,6 @@
 package jsony
 
 import (
-	"bytes"
 	"math"
 	"strconv"
 )
@@ -128,11 +127,10 @@ func (v Float64) EncodeJSON(w *Bytes) {
 }
 
 func (v Comment) EncodeJSON(w *Bytes) {
-	for _, line := range bytes.Split([]byte(v), []byte{'\n'}) {
-		w.Extend([]byte{'/', '/'})
-		w.Extend(line)
-		w.Append('\n')
-	}
+	w.Extend([]byte{'/', '/'})
+	// we assume that comment has no newlines.
+	w.Extend([]byte(v))
+	w.Append('\n')
 }
 
 func (v String) EncodeJSON(w *Bytes) {
