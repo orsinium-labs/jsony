@@ -3,7 +3,7 @@ package jsony
 import "unicode/utf8"
 
 func writeString(dst *SafeWriter, src []byte) {
-	dst.Write([]byte{'"'})
+	dst.WriteByte('"')
 	start := 0
 	for i := 0; i < len(src); {
 		if b := src[i]; b < utf8.RuneSelf {
@@ -70,7 +70,7 @@ func writeString(dst *SafeWriter, src []byte) {
 		i += size
 	}
 	dst.Write(src[start:])
-	dst.Write([]byte{'"'})
+	dst.WriteByte('"')
 }
 
 const hex = "0123456789abcdef"

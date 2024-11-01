@@ -18,6 +18,13 @@ type SafeWriter struct {
 	Err error
 }
 
+func (w *SafeWriter) WriteByte(b byte) {
+	w.buf = append(w.buf, b)
+	if len(w.buf) > 1024 {
+		w.Flush()
+	}
+}
+
 func (w *SafeWriter) Write(b []byte) {
 	w.buf = append(w.buf, b...)
 	if len(w.buf) > 1024 {

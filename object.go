@@ -27,7 +27,7 @@ func (v tObject) EncodeJSON(w *SafeWriter) {
 	if next == '{' {
 		w.Write([]byte{'{', '}'})
 	} else {
-		w.Write([]byte{'}'})
+		w.WriteByte('}')
 	}
 
 }
