@@ -14,7 +14,7 @@ var (
 	_ Encoder = Int32(0)
 )
 
-func (v Bool) EncodeJSON(w Writer) {
+func (v Bool) EncodeJSON(w *SafeWriter) {
 	if v {
 		w.Write([]byte("true"))
 	} else {
@@ -22,12 +22,12 @@ func (v Bool) EncodeJSON(w Writer) {
 	}
 }
 
-func (v Int) EncodeJSON(w Writer) {
+func (v Int) EncodeJSON(w *SafeWriter) {
 	b := strconv.AppendInt(nil, int64(v), 10)
 	w.Write(b)
 }
 
-func (v Int32) EncodeJSON(w Writer) {
+func (v Int32) EncodeJSON(w *SafeWriter) {
 	b := strconv.AppendInt(nil, int64(v), 10)
 	w.Write(b)
 }

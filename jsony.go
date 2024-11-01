@@ -1,25 +1,36 @@
 package jsony
 
-import "strings"
-
-type Writer interface {
-	Write([]byte)
-}
+import (
+	"bytes"
+	"io"
+)
 
 type Encoder interface {
-	EncodeJSON(Writer)
+	EncodeJSON(*SafeWriter)
 }
 
-type stringWriter struct {
-	b strings.Builder
+// SafeWriter wraps io.Writer and instead of returning an error stores it.
+type SafeWriter struct {
+	W   io.Writer
+	Err error
 }
 
-func (w *stringWriter) Write(b []byte) {
-	_, _ = w.b.Write(b)
+func (w *SafeWriter) Write(b []byte) {
+	_, err := w.W.Write(b)
+	if err != nil && w.Err == nil {
+		w.Err = err
+	}
 }
 
 func EncodeString(e Encoder) string {
-	w := stringWriter{}
-	e.EncodeJSON(&w)
-	return w.b.String()
+	iw := bytes.Buffer{}
+	sw := SafeWriter{W: &iw}
+	e.EncodeJSON(&sw)
+	return iw.String()
+}
+
+func Write(w io.Writer, e Encoder) error {
+	sw := SafeWriter{W: w}
+	e.EncodeJSON(&sw)
+	return sw.Err
 }
