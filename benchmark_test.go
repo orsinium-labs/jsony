@@ -29,6 +29,27 @@ func BenchmarkInt_Stdlib(b *testing.B) {
 	}
 }
 
+func BenchmarkSafeString_Jsony(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		box(jsony.EncodeBytes(jsony.SafeString("johny")))
+	}
+}
+
+func BenchmarkString_Jsony(b *testing.B) {
+	v := box("johny")
+	for i := 0; i < b.N; i++ {
+		box(jsony.EncodeBytes(jsony.String(v)))
+	}
+}
+
+func BenchmarkString_Stdlib(b *testing.B) {
+	v := box("johny")
+	for i := 0; i < b.N; i++ {
+		b, _ := json.Marshal(v)
+		box(b)
+	}
+}
+
 func BenchmarkObject_Jsony(b *testing.B) {
 	name := box("john")
 	age := box(42)

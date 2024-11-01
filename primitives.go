@@ -5,14 +5,15 @@ import (
 )
 
 type (
-	Bool   bool
-	Int    int
-	Int32  int32
-	Int64  int64
-	UInt   uint
-	UInt32 uint32
-	UInt64 uint64
-	String string
+	Bool       bool
+	Int        int
+	Int32      int32
+	Int64      int64
+	UInt       uint
+	UInt32     uint32
+	UInt64     uint64
+	String     string
+	safeString string
 )
 
 var (
@@ -24,7 +25,12 @@ var (
 	_ Encoder = UInt32(0)
 	_ Encoder = UInt64(0)
 	_ Encoder = String("")
+	_ Encoder = SafeString("")
 )
+
+func SafeString(s safeString) safeString {
+	return s
+}
 
 func (v Bool) EncodeJSON(w *Bytes) {
 	if v {
@@ -66,4 +72,8 @@ func (v UInt64) EncodeJSON(w *Bytes) {
 
 func (v String) EncodeJSON(w *Bytes) {
 	writeString(w, []byte(v))
+}
+
+func (v safeString) EncodeJSON(w *Bytes) {
+	w.Extend([]byte(v))
 }
