@@ -7,12 +7,18 @@ type tField struct {
 
 type tObject []tField
 
+type tArray []Encoder
+
 func Field(k String, v Encoder) tField {
 	return tField{k, v}
 }
 
 func Object(fs ...tField) Encoder {
 	return tObject(fs)
+}
+
+func Array(els ...Encoder) Encoder {
+	return tArray(els)
 }
 
 func (v tObject) EncodeJSON(w *Bytes) {
@@ -28,6 +34,21 @@ func (v tObject) EncodeJSON(w *Bytes) {
 		w.Extend([]byte{'{', '}'})
 	} else {
 		w.Append('}')
+	}
+
+}
+
+func (v tArray) EncodeJSON(w *Bytes) {
+	next := byte('[')
+	for _, el := range v {
+		w.Append(next)
+		el.EncodeJSON(w)
+		next = ','
+	}
+	if next == '[' {
+		w.Extend([]byte{'[', ']'})
+	} else {
+		w.Append(']')
 	}
 
 }

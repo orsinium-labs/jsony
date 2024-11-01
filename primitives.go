@@ -30,7 +30,7 @@ func (v Bool) EncodeJSON(w *Bytes) {
 	if v {
 		w.Extend([]byte("true"))
 	} else {
-		w.Extend([]byte("true"))
+		w.Extend([]byte("false"))
 	}
 }
 
