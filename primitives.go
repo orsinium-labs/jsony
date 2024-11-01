@@ -23,9 +23,11 @@ func (v Bool) EncodeJSON(w Writer) {
 }
 
 func (v Int) EncodeJSON(w Writer) {
-	w.Write([]byte(strconv.Itoa(int(v))))
+	b := strconv.AppendInt(nil, int64(v), 10)
+	w.Write(b)
 }
 
 func (v Int32) EncodeJSON(w Writer) {
-	w.Write([]byte(strconv.FormatInt(int64(v), 10)))
+	b := strconv.AppendInt(nil, int64(v), 10)
+	w.Write(b)
 }
