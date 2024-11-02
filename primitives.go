@@ -20,7 +20,7 @@ type (
 	UIntPtr    uintptr
 	Float32    float32
 	Float64    float64
-	Comment    string
+	comment    string
 	String     string
 	safeString string
 	null       bool
@@ -43,12 +43,16 @@ var (
 	_ Encoder = UIntPtr(0)
 	_ Encoder = Float32(0)
 	_ Encoder = Float64(0)
-	_ Encoder = Comment("")
+	_ Encoder = comment("")
 	_ Encoder = String("")
 	_ Encoder = SafeString("")
 )
 
 func SafeString(s safeString) safeString {
+	return s
+}
+
+func Comment(s comment) comment {
 	return s
 }
 
@@ -126,7 +130,7 @@ func (v Float64) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendFloat(w.buf, float64(v), fmt, -1, 64)
 }
 
-func (v Comment) EncodeJSON(w *Bytes) {
+func (v comment) EncodeJSON(w *Bytes) {
 	w.Extend([]byte{'/', '/'})
 	// we assume that comment has no newlines.
 	w.Extend([]byte(v))

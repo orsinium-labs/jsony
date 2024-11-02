@@ -281,59 +281,66 @@ func TestUIntPtr(t *testing.T) {
 	}
 }
 
-// func TestFloat32(t *testing.T) {
-// 	type args struct {
-// 		w *Bytes
-// 	}
-// 	tests := []struct {
-// 		name string
-// 		v    Float32
-// 		args args
-// 	}{
-// 		// TODO: Add test cases.
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			tt.v.EncodeJSON(tt.args.w)
-// 		})
-// 	}
-// }
+func TestFloat32(t *testing.T) {
+	cases := []struct {
+		given    float32
+		expected string
+	}{
+		{13.0, `13`},
+		{13.1, `13.1`},
+		{0.4, `0.4`},
+		{-0.4, `-0.4`},
+		{0.0, `0`},
+		{1e-7, `1e-07`},
+	}
+	for _, tc := range cases {
+		t.Run(tc.expected, func(t *testing.T) {
+			got := jsony.EncodeString(jsony.Float32(tc.given))
+			if got != tc.expected {
+				t.Fatalf("got `%s`, want `%s`", got, tc.expected)
+			}
+		})
+	}
+}
 
-// func TestFloat64(t *testing.T) {
-// 	type args struct {
-// 		w *Bytes
-// 	}
-// 	tests := []struct {
-// 		name string
-// 		v    Float64
-// 		args args
-// 	}{
-// 		// TODO: Add test cases.
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			tt.v.EncodeJSON(tt.args.w)
-// 		})
-// 	}
-// }
+func TestFloat64(t *testing.T) {
+	cases := []struct {
+		given    float64
+		expected string
+	}{
+		{13.0, `13`},
+		{13.1, `13.1`},
+		{0.4, `0.4`},
+		{-0.4, `-0.4`},
+		{0.0, `0`},
+		{1e-7, `1e-07`},
+	}
+	for _, tc := range cases {
+		t.Run(tc.expected, func(t *testing.T) {
+			got := jsony.EncodeString(jsony.Float64(tc.given))
+			if got != tc.expected {
+				t.Fatalf("got `%s`, want `%s`", got, tc.expected)
+			}
+		})
+	}
+}
 
-// func TestComment(t *testing.T) {
-// 	type args struct {
-// 		w *Bytes
-// 	}
-// 	tests := []struct {
-// 		name string
-// 		v    Comment
-// 		args args
-// 	}{
-// 		// TODO: Add test cases.
-// 	}
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			tt.v.EncodeJSON(tt.args.w)
-// 		})
-// 	}
-// }
+func TestComment(t *testing.T) {
+	cases := []struct {
+		given    jsony.Encoder
+		expected string
+	}{
+		{jsony.Comment("hi"), "//hi\n"},
+	}
+	for _, tc := range cases {
+		t.Run(tc.expected, func(t *testing.T) {
+			got := jsony.EncodeString(tc.given)
+			if got != tc.expected {
+				t.Fatalf("got `%s`, want `%s`", got, tc.expected)
+			}
+		})
+	}
+}
 
 func TestString(t *testing.T) {
 	cases := []struct {
@@ -345,9 +352,15 @@ func TestString(t *testing.T) {
 		{"hello world!", `"hello world!"`},
 		{"hello\n", `"hello\n"`},
 		{"hello\\n", `"hello\\n"`},
+		{"hi\bsup", `"hi\bsup"`},
+		{"hi\fsup", `"hi\fsup"`},
+		{"hi\rsup", `"hi\rsup"`},
+		{"hi\tsup", `"hi\tsup"`},
 		{"привет", `"привет"`},
 		{"<b>", `"\u003cb\u003e"`},
 		{"\"", `"\""`},
+		{"\uFFFD", "\"\uFFFD\""},
+		{"\u2028", `"\u2028"`},
 	}
 	for _, tc := range cases {
 		t.Run(tc.expected, func(t *testing.T) {

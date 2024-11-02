@@ -39,10 +39,6 @@ func (v tObject) EncodeJSON(w *Bytes) {
 }
 
 func (v tArray) EncodeJSON(w *Bytes) {
-	if v == nil {
-		w.Extend([]byte("null"))
-		return
-	}
 	next := byte('[')
 	for _, el := range v {
 		w.Append(next)
