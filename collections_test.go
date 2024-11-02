@@ -57,7 +57,16 @@ func TestMap_Null(t *testing.T) {
 }
 
 func TestArray(t *testing.T) {
-	obj := jsony.Array{jsony.String("aragorn"), jsony.Int(82), jsony.Null}
+	obj := jsony.Array[jsony.Int]{13, 7, -5}
+	got := jsony.EncodeString(obj)
+	want := `[13,7,-5]`
+	if got != want {
+		t.Fatalf("got `%s`, want `%s`", got, want)
+	}
+}
+
+func TestMixedArray(t *testing.T) {
+	obj := jsony.MixedArray{jsony.String("aragorn"), jsony.Int(82), jsony.Null}
 	got := jsony.EncodeString(obj)
 	want := `["aragorn",82,null]`
 	if got != want {
@@ -65,8 +74,8 @@ func TestArray(t *testing.T) {
 	}
 }
 
-func TestArray_Empty(t *testing.T) {
-	obj := jsony.Array{}
+func TestMixedArray_Empty(t *testing.T) {
+	obj := jsony.MixedArray{}
 	got := jsony.EncodeString(obj)
 	want := `[]`
 	if got != want {
@@ -74,8 +83,8 @@ func TestArray_Empty(t *testing.T) {
 	}
 }
 
-func TestArray_Null(t *testing.T) {
-	obj := jsony.Array(nil)
+func TestMixedArray_Null(t *testing.T) {
+	obj := jsony.MixedArray(nil)
 	got := jsony.EncodeString(obj)
 	want := `null`
 	if got != want {

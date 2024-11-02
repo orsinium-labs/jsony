@@ -9,7 +9,8 @@ type Object []Field
 
 type Map map[Encoder]Encoder
 
-type Array []Encoder
+type Array[T Encoder] []T
+type MixedArray = Array[Encoder]
 
 func (v Object) EncodeJSON(w *Bytes) {
 	next := byte('{')
@@ -47,7 +48,7 @@ func (v Map) EncodeJSON(w *Bytes) {
 	}
 }
 
-func (v Array) EncodeJSON(w *Bytes) {
+func (v Array[T]) EncodeJSON(w *Bytes) {
 	if v == nil {
 		w.Extend([]byte("null"))
 		return

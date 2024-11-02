@@ -124,7 +124,7 @@ func BenchmarkMixedArray_Jsony(b *testing.B) {
 	name := box("john")
 	age := box(42)
 	for i := 0; i < b.N; i++ {
-		obj := jsony.Array{jsony.String(name), jsony.Int(age)}
+		obj := jsony.MixedArray{jsony.String(name), jsony.Int(age)}
 		box(jsony.EncodeBytes(obj))
 	}
 }
@@ -143,7 +143,7 @@ func BenchmarkIntArray_Jsony(b *testing.B) {
 	x := box(42)
 	y := box(1337)
 	for i := 0; i < b.N; i++ {
-		obj := jsony.Array{jsony.Int(x), jsony.Int(y)}
+		obj := jsony.Array[jsony.Int]{jsony.Int(x), jsony.Int(y)}
 		box(jsony.EncodeBytes(obj))
 	}
 }
@@ -154,6 +154,21 @@ func BenchmarkIntArray_Stdlib(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		v := []int{x, y}
 		b, _ := json.Marshal(v)
+		box(b)
+	}
+}
+
+func BenchmarkBigArray_Jsony(b *testing.B) {
+	obj := box(make(jsony.Array[jsony.Int], 10_000))
+	for i := 0; i < b.N; i++ {
+		box(jsony.EncodeBytes(obj))
+	}
+}
+
+func BenchmarkBigArray_Stdlib(b *testing.B) {
+	x := box(make([]int, 10_000))
+	for i := 0; i < b.N; i++ {
+		b, _ := json.Marshal(x)
 		box(b)
 	}
 }
