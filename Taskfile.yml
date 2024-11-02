@@ -1,0 +1,16 @@
+# https://taskfile.dev
+
+version: "3"
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  bench:
+    desc: run benchmarks
+    cmds:
+      - go test -bench=. | python3 format_benchmark.py
+  test:
+    desc: run tests
+    cmds:
+      - go test .

@@ -44,12 +44,6 @@ func BenchmarkFloat64_Stdlib(b *testing.B) {
 	}
 }
 
-func BenchmarkSafeString_Jsony(b *testing.B) {
-	for i := 0; i < b.N; i++ {
-		box(jsony.EncodeBytes(jsony.SafeString("johny")))
-	}
-}
-
 func BenchmarkString_Jsony(b *testing.B) {
 	v := box("johny")
 	for i := 0; i < b.N; i++ {
