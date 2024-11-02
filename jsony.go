@@ -2,6 +2,23 @@ package jsony
 
 import "unsafe"
 
+// One-letter aliases for people living on the edge.
+type (
+	B = Bool
+	I = Int64
+	U = UInt
+	S = String
+	F = Float64
+	A = MixedArray
+	O = Object
+	M = Map
+)
+
+const (
+	True  = Bool(true)
+	False = Bool(false)
+)
+
 // Encoder is an interface describing objects that can be serialized to JSON.
 type Encoder interface {
 	EncodeJSON(*Bytes)
