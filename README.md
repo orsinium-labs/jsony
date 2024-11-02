@@ -1,5 +1,8 @@
 # jsony
 
+[ [📄 docs](https://pkg.go.dev/github.com/orsinium-labs/jsony) ]
+[ [🐙 github](https://github.com/orsinium-labs/jsony) ]
+
 A blazing fast and safe Go package for serializing JSON.
 
 Features:
@@ -11,13 +14,13 @@ Features:
 * objects preserve elements' order
 * objects can be constructed dynamically
 
-## Installation
+## 📦 Installation
 
 ```bash
 go get github.com/orsinium-labs/jsony
 ```
 
-## Usage
+## 🔧 Usage
 
 ```go
 obj := jsony.Object{
@@ -28,7 +31,9 @@ s := jsony.EncodeString(obj)
 fmt.Println(s)
 ```
 
-## Benchmarks
+See [documentation](https://pkg.go.dev/github.com/orsinium-labs/jsony).
+
+## 🐎 Benchmarks
 
 Each value is time (in ns) per operation, as reported by the Go built-in benchmark framework. Lower is better.
 
