@@ -56,10 +56,12 @@ func Comment(s comment) comment {
 	return s
 }
 
+// EncodeJSON implements [Encoder].
 func (v null) EncodeJSON(w *Bytes) {
 	w.Extend([]byte("null"))
 }
 
+// EncodeJSON implements [Encoder].
 func (v Bool) EncodeJSON(w *Bytes) {
 	if v {
 		w.Extend([]byte("true"))
@@ -68,50 +70,62 @@ func (v Bool) EncodeJSON(w *Bytes) {
 	}
 }
 
+// EncodeJSON implements [Encoder].
 func (v Int) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendInt(w.buf, int64(v), 10)
 }
 
+// EncodeJSON implements [Encoder].
 func (v Int8) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendInt(w.buf, int64(v), 10)
 }
 
+// EncodeJSON implements [Encoder].
 func (v Int16) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendInt(w.buf, int64(v), 10)
 }
 
+// EncodeJSON implements [Encoder].
 func (v Int32) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendInt(w.buf, int64(v), 10)
 }
 
+// EncodeJSON implements [Encoder].
 func (v Int64) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendInt(w.buf, int64(v), 10)
 }
 
+// EncodeJSON implements [Encoder].
 func (v UInt) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendUint(w.buf, uint64(v), 10)
 }
 
+// EncodeJSON implements [Encoder].
 func (v UInt8) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendUint(w.buf, uint64(v), 10)
 }
 
+// EncodeJSON implements [Encoder].
 func (v UInt16) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendUint(w.buf, uint64(v), 10)
 }
 
+// EncodeJSON implements [Encoder].
 func (v UInt32) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendUint(w.buf, uint64(v), 10)
 }
 
+// EncodeJSON implements [Encoder].
 func (v UInt64) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendUint(w.buf, uint64(v), 10)
 }
 
+// EncodeJSON implements [Encoder].
 func (v UIntPtr) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendUint(w.buf, uint64(v), 10)
 }
 
+// EncodeJSON implements [Encoder].
 func (v Float32) EncodeJSON(w *Bytes) {
 	abs := float32(math.Abs(float64(v)))
 	fmt := byte('f')
@@ -121,6 +135,7 @@ func (v Float32) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendFloat(w.buf, float64(v), fmt, -1, 32)
 }
 
+// EncodeJSON implements [Encoder].
 func (v Float64) EncodeJSON(w *Bytes) {
 	abs := math.Abs(float64(v))
 	fmt := byte('f')
@@ -130,6 +145,7 @@ func (v Float64) EncodeJSON(w *Bytes) {
 	w.buf = strconv.AppendFloat(w.buf, float64(v), fmt, -1, 64)
 }
 
+// EncodeJSON implements [Encoder].
 func (v comment) EncodeJSON(w *Bytes) {
 	w.Extend([]byte{'/', '/'})
 	// we assume that comment has no newlines.
@@ -137,10 +153,12 @@ func (v comment) EncodeJSON(w *Bytes) {
 	w.Append('\n')
 }
 
+// EncodeJSON implements [Encoder].
 func (v String) EncodeJSON(w *Bytes) {
 	writeString(w, []byte(v))
 }
 
+// EncodeJSON implements [Encoder].
 func (v safeString) EncodeJSON(w *Bytes) {
 	w.Append('"')
 	w.Extend([]byte(v))
