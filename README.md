@@ -6,9 +6,10 @@ Features:
 
 * 2-3 times faster than stdlib
 * type safe and with no runtime errors or panics
-* objects preserve elements' order
 * pure go
 * reflection-free
+* objects preserve elements' order
+* objects can be constructed dynamically
 
 ## Installation
 
@@ -29,7 +30,7 @@ fmt.Println(s)
 
 ## Benchmarks
 
-Each values is time (in ns) per operation, as reported by the Go built-in benchmark framework. Lower is better.
+Each value is time (in ns) per operation, as reported by the Go built-in benchmark framework. Lower is better.
 
 | category     | jsony     | stdlib   |
 | ------------ | --------: | -------: |
