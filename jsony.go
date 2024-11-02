@@ -27,6 +27,15 @@ func EncodeBytes(e Encoder) []byte {
 	return b.buf
 }
 
+// Marshal JSON into the end of the given slice of bytes.
+//
+// Useful if you want to reduce allocations by reusing an existing buffer.
+func AppendBytes(buf []byte, e Encoder) []byte {
+	b := Bytes{buf}
+	e.EncodeJSON(&b)
+	return b.buf
+}
+
 // Marshal JSON as a string.
 func EncodeString(e Encoder) string {
 	b := Bytes{}

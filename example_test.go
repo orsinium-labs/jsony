@@ -160,3 +160,22 @@ func ExampleSafeString() {
 	fmt.Println(res)
 	//Output: {"name":"johny"}
 }
+
+func ExampleEncodeBytes() {
+	res := jsony.EncodeBytes(jsony.Object{})
+	fmt.Printf("%v\n", res)
+	//Output: [123 125]
+}
+
+func ExampleAppendBytes() {
+	buf := make([]byte, 0, 1024)
+	res := jsony.AppendBytes(buf, jsony.Object{})
+	fmt.Printf("%v\n", res)
+	//Output: [123 125]
+}
+
+func ExampleEncodeString() {
+	res := jsony.EncodeString(jsony.Object{})
+	fmt.Printf("%v\n", res)
+	//Output: {}
+}
