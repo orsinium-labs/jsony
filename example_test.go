@@ -179,3 +179,32 @@ func ExampleEncodeString() {
 	fmt.Printf("%v\n", res)
 	//Output: {}
 }
+
+func ExampleObject() {
+	user := jsony.Object{
+		jsony.Field{"name", jsony.String("aragorn")},
+		jsony.Field{"age", jsony.Int(87)},
+		jsony.Field{"admin", jsony.Bool(true)},
+	}
+	res := jsony.EncodeString(user)
+	fmt.Println(res)
+	//Output: {"name":"aragorn","age":87,"admin":true}
+}
+
+func ExampleArray() {
+	user := jsony.Array[jsony.Int]{
+		jsony.Int(13), jsony.Int(14), jsony.Int(15),
+	}
+	res := jsony.EncodeString(user)
+	fmt.Println(res)
+	//Output: [13,14,15]
+}
+
+func ExampleMixedArray() {
+	user := jsony.MixedArray{
+		jsony.String("johny"), jsony.Int(14), jsony.Null,
+	}
+	res := jsony.EncodeString(user)
+	fmt.Println(res)
+	//Output: ["johny",14,null]
+}
