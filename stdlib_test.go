@@ -7,19 +7,27 @@ import (
 	"github.com/orsinium-labs/jsony"
 )
 
-// type testMarshaller struct {}
+type testMarshaller struct{}
 
-// func (testMarshaller) MarshalJSON() ([]byte, error) {
-// 	return []byte("sup"), nil
-// }
+func (testMarshaller) MarshalJSON() ([]byte, error) {
+	return []byte("sup"), nil
+}
 
-func TestMarshal(t *testing.T) {
+func TestMarshaller(t *testing.T) {
 	m := jsony.Marshaller{jsony.Int(13)}
 	got, err := json.Marshal(m)
 	if err != nil {
 		t.Fatalf("failed: %v", err)
 	}
 	if string(got) != "13" {
+		t.Fatalf("got: %v", got)
+	}
+}
+
+func TestFromMarshaller(t *testing.T) {
+	m := jsony.FromMarshaller(testMarshaller{})
+	got := jsony.EncodeString(m)
+	if string(got) != "sup" {
 		t.Fatalf("got: %v", got)
 	}
 }
