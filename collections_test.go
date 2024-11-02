@@ -27,6 +27,35 @@ func TestObject_Empty(t *testing.T) {
 	}
 }
 
+func TestMap(t *testing.T) {
+	obj := jsony.Map{
+		jsony.SafeString("name"): jsony.String("aragorn"),
+	}
+	got := jsony.EncodeString(obj)
+	want := `{"name":"aragorn"}`
+	if got != want {
+		t.Fatalf("got `%s`, want `%s`", got, want)
+	}
+}
+
+func TestMap_Empty(t *testing.T) {
+	obj := jsony.Map{}
+	got := jsony.EncodeString(obj)
+	want := `{}`
+	if got != want {
+		t.Fatalf("got `%s`, want `%s`", got, want)
+	}
+}
+
+func TestMap_Null(t *testing.T) {
+	obj := jsony.Map(nil)
+	got := jsony.EncodeString(obj)
+	want := `null`
+	if got != want {
+		t.Fatalf("got `%s`, want `%s`", got, want)
+	}
+}
+
 func TestArray(t *testing.T) {
 	obj := jsony.Array{jsony.String("aragorn"), jsony.Int(82), jsony.Null}
 	got := jsony.EncodeString(obj)

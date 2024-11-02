@@ -94,6 +94,32 @@ func BenchmarkObject_Stdlib(b *testing.B) {
 	}
 }
 
+func BenchmarkMap_Jsony(b *testing.B) {
+	name := box("john")
+	age := box(42)
+	for i := 0; i < b.N; i++ {
+		obj := jsony.Map{
+			jsony.String("name"): jsony.String(name),
+			jsony.String("age"):  jsony.Int(age),
+		}
+		box(jsony.EncodeBytes(obj))
+	}
+}
+
+func BenchmarkMap_Stdlib(b *testing.B) {
+	name := box("john")
+	age := box(42)
+	type User map[string]any
+	for i := 0; i < b.N; i++ {
+		v := User{
+			"name": name,
+			"age":  age,
+		}
+		b, _ := json.Marshal(v)
+		box(b)
+	}
+}
+
 func BenchmarkMixedArray_Jsony(b *testing.B) {
 	name := box("john")
 	age := box(42)

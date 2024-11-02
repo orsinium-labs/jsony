@@ -7,6 +7,8 @@ type Field struct {
 
 type Object []Field
 
+type Map map[Encoder]Encoder
+
 type Array []Encoder
 
 func (v Object) EncodeJSON(w *Bytes) {
@@ -23,7 +25,26 @@ func (v Object) EncodeJSON(w *Bytes) {
 	} else {
 		w.Append('}')
 	}
+}
 
+func (v Map) EncodeJSON(w *Bytes) {
+	if v == nil {
+		w.Extend([]byte("null"))
+		return
+	}
+	next := byte('{')
+	for k, v := range v {
+		w.Append(next)
+		k.EncodeJSON(w)
+		w.Append(':')
+		v.EncodeJSON(w)
+		next = ','
+	}
+	if next == '{' {
+		w.Extend([]byte{'{', '}'})
+	} else {
+		w.Append('}')
+	}
 }
 
 func (v Array) EncodeJSON(w *Bytes) {
@@ -42,5 +63,4 @@ func (v Array) EncodeJSON(w *Bytes) {
 	} else {
 		w.Append(']')
 	}
-
 }
