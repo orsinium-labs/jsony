@@ -1,7 +1,7 @@
 package jsony
 
 type tField struct {
-	k String
+	k safeString
 	v Encoder
 }
 
@@ -9,7 +9,7 @@ type tObject []tField
 
 type tArray []Encoder
 
-func Field(k String, v Encoder) tField {
+func Field(k safeString, v Encoder) tField {
 	return tField{k, v}
 }
 
@@ -24,9 +24,9 @@ func Array(els ...Encoder) Encoder {
 func (v tObject) EncodeJSON(w *Bytes) {
 	next := byte('{')
 	for _, f := range v {
-		w.Extend([]byte{next, '"'})
+		w.Append(next)
 		f.k.EncodeJSON(w)
-		w.Extend([]byte{'"', ':'})
+		w.Append(':')
 		f.v.EncodeJSON(w)
 		next = ','
 	}
