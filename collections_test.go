@@ -7,10 +7,10 @@ import (
 )
 
 func TestObject(t *testing.T) {
-	obj := jsony.Object(
-		jsony.Field("name", jsony.String("aragorn")),
-		jsony.Field("age", jsony.Int(82)),
-	)
+	obj := jsony.Object{
+		jsony.Field{"name", jsony.String("aragorn")},
+		jsony.Field{"age", jsony.Int(82)},
+	}
 	got := jsony.EncodeString(obj)
 	want := `{"name":"aragorn","age":82}`
 	if got != want {
@@ -19,7 +19,7 @@ func TestObject(t *testing.T) {
 }
 
 func TestObject_Empty(t *testing.T) {
-	obj := jsony.Object()
+	obj := jsony.Object{}
 	got := jsony.EncodeString(obj)
 	want := `{}`
 	if got != want {
@@ -28,7 +28,7 @@ func TestObject_Empty(t *testing.T) {
 }
 
 func TestArray(t *testing.T) {
-	obj := jsony.Array(jsony.String("aragorn"), jsony.Int(82), jsony.Null)
+	obj := jsony.Array{jsony.String("aragorn"), jsony.Int(82), jsony.Null}
 	got := jsony.EncodeString(obj)
 	want := `["aragorn",82,null]`
 	if got != want {
@@ -37,9 +37,18 @@ func TestArray(t *testing.T) {
 }
 
 func TestArray_Empty(t *testing.T) {
-	obj := jsony.Array()
+	obj := jsony.Array{}
 	got := jsony.EncodeString(obj)
 	want := `[]`
+	if got != want {
+		t.Fatalf("got `%s`, want `%s`", got, want)
+	}
+}
+
+func TestArray_Null(t *testing.T) {
+	obj := jsony.Array(nil)
+	got := jsony.EncodeString(obj)
+	want := `null`
 	if got != want {
 		t.Fatalf("got `%s`, want `%s`", got, want)
 	}

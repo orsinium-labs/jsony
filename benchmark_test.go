@@ -69,10 +69,10 @@ func BenchmarkObject_Jsony(b *testing.B) {
 	name := box("john")
 	age := box(42)
 	for i := 0; i < b.N; i++ {
-		obj := jsony.Object(
-			jsony.Field("name", jsony.String(name)),
-			jsony.Field("age", jsony.Int(age)),
-		)
+		obj := jsony.Object{
+			jsony.Field{"name", jsony.String(name)},
+			jsony.Field{"age", jsony.Int(age)},
+		}
 		box(jsony.EncodeBytes(obj))
 	}
 }
@@ -98,7 +98,7 @@ func BenchmarkMixedArray_Jsony(b *testing.B) {
 	name := box("john")
 	age := box(42)
 	for i := 0; i < b.N; i++ {
-		obj := jsony.Array(jsony.String(name), jsony.Int(age))
+		obj := jsony.Array{jsony.String(name), jsony.Int(age)}
 		box(jsony.EncodeBytes(obj))
 	}
 }
@@ -117,7 +117,7 @@ func BenchmarkIntArray_Jsony(b *testing.B) {
 	x := box(42)
 	y := box(1337)
 	for i := 0; i < b.N; i++ {
-		obj := jsony.Array(jsony.Int(x), jsony.Int(y))
+		obj := jsony.Array{jsony.Int(x), jsony.Int(y)}
 		box(jsony.EncodeBytes(obj))
 	}
 }

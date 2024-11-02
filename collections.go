@@ -1,33 +1,21 @@
 package jsony
 
-type tField struct {
-	k safeString
-	v Encoder
+type Field struct {
+	K safeString
+	V Encoder
 }
 
-type tObject []tField
+type Object []Field
 
-type tArray []Encoder
+type Array []Encoder
 
-func Field(k safeString, v Encoder) tField {
-	return tField{k, v}
-}
-
-func Object(fs ...tField) Encoder {
-	return tObject(fs)
-}
-
-func Array(els ...Encoder) Encoder {
-	return tArray(els)
-}
-
-func (v tObject) EncodeJSON(w *Bytes) {
+func (v Object) EncodeJSON(w *Bytes) {
 	next := byte('{')
 	for _, f := range v {
 		w.Append(next)
-		f.k.EncodeJSON(w)
+		f.K.EncodeJSON(w)
 		w.Append(':')
-		f.v.EncodeJSON(w)
+		f.V.EncodeJSON(w)
 		next = ','
 	}
 	if next == '{' {
@@ -38,7 +26,11 @@ func (v tObject) EncodeJSON(w *Bytes) {
 
 }
 
-func (v tArray) EncodeJSON(w *Bytes) {
+func (v Array) EncodeJSON(w *Bytes) {
+	if v == nil {
+		w.Extend([]byte("null"))
+		return
+	}
 	next := byte('[')
 	for _, el := range v {
 		w.Append(next)
