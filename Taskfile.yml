@@ -6,10 +6,21 @@ vars:
   GREETING: Hello, World!
 
 tasks:
+  release:
+    desc: Tag and upload release
+    cmds:
+      - which gh
+      - test v{{.CLI_ARGS}}
+      - git tag v{{.CLI_ARGS}}
+      - git push
+      - git push --tags
+      - gh release create --generate-notes v{{.CLI_ARGS}}
+
   bench:
     desc: run benchmarks
     cmds:
       - go test -bench=. | python3 format_benchmark.py
+
   test:
     desc: run tests
     cmds:
