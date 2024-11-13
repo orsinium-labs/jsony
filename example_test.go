@@ -14,7 +14,7 @@ func Example() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: {"name":"aragorn","age":87,"admin":true}
+	// Output: {"name":"aragorn","age":87,"admin":true}
 }
 
 func ExampleBool() {
@@ -23,7 +23,7 @@ func ExampleBool() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: {"admin":true}
+	// Output: {"admin":true}
 }
 
 func ExampleInt() {
@@ -32,7 +32,7 @@ func ExampleInt() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: {"age":123}
+	// Output: {"age":123}
 }
 
 func ExampleInt8() {
@@ -41,7 +41,7 @@ func ExampleInt8() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: {"age":123}
+	// Output: {"age":123}
 }
 
 func ExampleInt16() {
@@ -50,7 +50,7 @@ func ExampleInt16() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: {"age":123}
+	// Output: {"age":123}
 }
 
 func ExampleInt32() {
@@ -59,7 +59,7 @@ func ExampleInt32() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: {"age":123}
+	// Output: {"age":123}
 }
 
 func ExampleInt64() {
@@ -68,7 +68,7 @@ func ExampleInt64() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: {"age":123}
+	// Output: {"age":123}
 }
 
 func ExampleUInt() {
@@ -77,7 +77,7 @@ func ExampleUInt() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: {"age":123}
+	// Output: {"age":123}
 }
 
 func ExampleUInt8() {
@@ -86,7 +86,7 @@ func ExampleUInt8() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: {"age":123}
+	// Output: {"age":123}
 }
 
 func ExampleUInt16() {
@@ -95,7 +95,7 @@ func ExampleUInt16() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: {"age":123}
+	// Output: {"age":123}
 }
 
 func ExampleUInt32() {
@@ -104,7 +104,7 @@ func ExampleUInt32() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: {"age":123}
+	// Output: {"age":123}
 }
 
 func ExampleUInt64() {
@@ -113,7 +113,7 @@ func ExampleUInt64() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: {"age":123}
+	// Output: {"age":123}
 }
 
 func ExampleUIntPtr() {
@@ -122,7 +122,7 @@ func ExampleUIntPtr() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: {"age":123}
+	// Output: {"age":123}
 }
 
 func ExampleFloat32() {
@@ -131,7 +131,7 @@ func ExampleFloat32() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: {"weight":62.3}
+	// Output: {"weight":62.3}
 }
 
 func ExampleFloat64() {
@@ -140,7 +140,7 @@ func ExampleFloat64() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: {"weight":62.3}
+	// Output: {"weight":62.3}
 }
 
 func ExampleString() {
@@ -149,7 +149,7 @@ func ExampleString() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: {"name":"johny"}
+	// Output: {"name":"johny"}
 }
 
 func ExampleSafeString() {
@@ -158,26 +158,26 @@ func ExampleSafeString() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: {"name":"johny"}
+	// Output: {"name":"johny"}
 }
 
 func ExampleEncodeBytes() {
 	res := jsony.EncodeBytes(jsony.Object{})
 	fmt.Printf("%v\n", res)
-	//Output: [123 125]
+	// Output: [123 125]
 }
 
 func ExampleAppendBytes() {
 	buf := make([]byte, 0, 1024)
 	res := jsony.AppendBytes(buf, jsony.Object{})
 	fmt.Printf("%v\n", res)
-	//Output: [123 125]
+	// Output: [123 125]
 }
 
 func ExampleEncodeString() {
 	res := jsony.EncodeString(jsony.Object{})
 	fmt.Printf("%v\n", res)
-	//Output: {}
+	// Output: {}
 }
 
 func ExampleObject() {
@@ -188,7 +188,7 @@ func ExampleObject() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: {"name":"aragorn","age":87,"admin":true}
+	// Output: {"name":"aragorn","age":87,"admin":true}
 }
 
 func ExampleArray() {
@@ -197,7 +197,7 @@ func ExampleArray() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: [13,14,15]
+	// Output: [13,14,15]
 }
 
 func ExampleMixedArray() {
@@ -206,5 +206,5 @@ func ExampleMixedArray() {
 	}
 	res := jsony.EncodeString(user)
 	fmt.Println(res)
-	//Output: ["johny",14,null]
+	// Output: ["johny",14,null]
 }
