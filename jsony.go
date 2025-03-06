@@ -4,14 +4,15 @@ import "unsafe"
 
 // One-letter aliases for people living on the edge.
 type (
-	B = Bool
-	I = Int64
-	U = UInt
-	S = String
-	F = Float64
-	A = MixedArray
-	O = Object
-	M = Map
+	B  = Bool
+	I  = Int64
+	U  = UInt
+	S  = String
+	F  = Float64
+	A  = MixedArray
+	SA = SafeArray
+	O  = Object
+	M  = Map
 )
 
 const (

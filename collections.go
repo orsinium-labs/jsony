@@ -20,6 +20,9 @@ type Map map[Encoder]Encoder
 // Array of elements of the same type.
 type Array[T Encoder] []T
 
+// Array of [SafeString].
+type SafeArray = Array[safeString]
+
 // Array where every element can be of different type.
 type MixedArray = Array[Encoder]
 

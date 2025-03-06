@@ -24,8 +24,8 @@ go get github.com/orsinium-labs/jsony
 
 ```go
 obj := jsony.Object{
-   jsony.Field{"name", jsony.String("Aragorn")},
-   jsony.Field{"age", jsony.Int(87)},
+   {"name", jsony.String("Aragorn")},
+   {"age", jsony.Int(87)},
 }
 s := jsony.EncodeString(obj)
 fmt.Println(s)
