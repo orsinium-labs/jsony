@@ -8,13 +8,75 @@ import (
 
 func TestObject(t *testing.T) {
 	obj := jsony.Object{
-		jsony.Field{"name", jsony.String("aragorn")},
-		jsony.Field{"age", jsony.Int(82)},
+		{"name", jsony.String("aragorn")},
+		{"age", jsony.Int(82)},
 	}
 	got := jsony.EncodeString(obj)
 	want := `{"name":"aragorn","age":82}`
 	if got != want {
 		t.Fatalf("got `%s`, want `%s`", got, want)
+	}
+}
+
+func TestObject_With(t *testing.T) {
+	obj1 := jsony.Object{
+		{"name", jsony.String("aragorn")},
+		{"age", jsony.Int(82)},
+	}
+	obj2 := obj1.With(
+		jsony.Field{"occupation", jsony.String("strider")},
+	)
+
+	{
+		got := jsony.EncodeString(obj1)
+		want := `{"name":"aragorn","age":82}`
+		if got != want {
+			t.Fatalf("got `%s`, want `%s`", got, want)
+		}
+	}
+	{
+		got := jsony.EncodeString(obj2)
+		want := `{"name":"aragorn","age":82,"occupation":"strider"}`
+		if got != want {
+			t.Fatalf("got `%s`, want `%s`", got, want)
+		}
+	}
+}
+
+func TestUnsafeObject(t *testing.T) {
+	obj := jsony.UnsafeObject{
+		{jsony.String("name"), jsony.String("aragorn")},
+		{jsony.String("age"), jsony.Int(82)},
+	}
+	got := jsony.EncodeString(obj)
+	want := `{"name":"aragorn","age":82}`
+	if got != want {
+		t.Fatalf("got `%s`, want `%s`", got, want)
+	}
+}
+
+func TestUnsafeObject_With(t *testing.T) {
+	obj1 := jsony.UnsafeObject{
+		{jsony.String("name"), jsony.String("aragorn")},
+		{jsony.String("age"), jsony.Int(82)},
+	}
+	obj2 := obj1.With(
+		jsony.UnsafeField{jsony.String("occupation"), jsony.String("strider")},
+	)
+
+	{
+		got := jsony.EncodeString(obj1)
+		want := `{"name":"aragorn","age":82}`
+		if got != want {
+			t.Fatalf("got `%s`, want `%s`", got, want)
+		}
+	}
+	{
+		got := jsony.EncodeString(obj2)
+		want := `{"name":"aragorn","age":82,"occupation":"strider"}`
+		if got != want {
+			t.Fatalf("got `%s`, want `%s`", got, want)
+		}
 	}
 }
 

@@ -24,4 +24,4 @@ tasks:
   test:
     desc: run tests
     cmds:
-      - go test .
+      - go test -cover -count=1 .
