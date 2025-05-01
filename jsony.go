@@ -6,12 +6,13 @@ import "unsafe"
 type (
 	B  = Bool
 	I  = Int64
-	U  = UInt
+	U  = UInt64
 	S  = String
 	F  = Float64
 	A  = MixedArray
 	SA = SafeArray
 	O  = Object
+	UO = UnsafeObject
 	M  = Map
 )
 
