@@ -53,4 +53,7 @@
 //
 //   - [Marshaller]
 //   - [FromMarshaller]
+//
+// If the concrete type is not statically known, [Detect] or [UnsafeDetect]
+// can be used.
 package jsony
