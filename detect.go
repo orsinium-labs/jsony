@@ -40,7 +40,7 @@ func UnsafeDetect(val any) Encoder {
 	if val == nil {
 		return Null
 	}
-	switch v := any(val).(type) {
+	switch v := val.(type) {
 	case string:
 		return String(v)
 	case bool:
