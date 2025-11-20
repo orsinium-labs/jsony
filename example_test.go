@@ -208,3 +208,11 @@ func ExampleMixedArray() {
 	fmt.Println(res)
 	// Output: ["johny",14,null]
 }
+
+func ExampleUnsafeDetect() {
+	var val any = 13
+	user := jsony.UnsafeDetect(val)
+	res := jsony.EncodeString(user)
+	fmt.Println(res)
+	// Output: 13
+}
